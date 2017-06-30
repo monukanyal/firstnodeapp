@@ -43,9 +43,9 @@
 	/*-----------started functionality code------------------------*/
 
 	app.get('/',function(request,response){
-
+		console.log('hello Monu kanyal- Lets start Node ');
 		//response.sendFile(__dirname+'/registration_form.html');  //no use simple html show
-	 	response.render('index',{page_title:'Home'});   
+	 	//response.render('index',{page_title:'Home'});   
 	});
 
 	
