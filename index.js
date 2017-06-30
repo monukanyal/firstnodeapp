@@ -1,14 +1,14 @@
 		/*---------------------Setup area----------------------------
 		------------------------------------------------------------*/
 			var express = require('express');
-			var mysql=require('mysql');
-			var md5 = require('md5');
+			//var mysql=require('mysql');
+			//var md5 = require('md5');
 			var session = require('express-session')			
 			var app  = express();
 			
-			app.set('view engine', 'ejs');
+			//app.set('view engine', 'ejs');
 
-			var upload=require('express-fileupload');
+			//var upload=require('express-fileupload');
 			var nodemailer=require('nodemailer');
 			var http=require('http').Server(app);
 			var io=require('socket.io')(http);
@@ -18,7 +18,7 @@
 			//app.use(express.cookieParser());
 		//	app.use(express.session({ secret: 'something'}));
 			//var querystring = require('querystring');
-			var fs = require('fs');
+			//var fs = require('fs');
 			//var dt = require('./firstmod');
 			// var google = require('googleapis');
 			// var OAuth2 = google.auth.OAuth2;
