@@ -2,9 +2,9 @@
   "name": "Mynodeapp",
   "version": "1.0.0",
   "description": "First Node app",
-  "main": "first.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node first.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "accepts": {
