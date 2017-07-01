@@ -10,8 +10,9 @@
 			var nodemailer=require('nodemailer');
 			var http=require('http').Server(app);
 			var io=require('socket.io')(http);
-                       app.set('port', (process.env.PORT || 5000));
-                       http.listen(app.get('port'));
+                      // app.set('port', (process.env.PORT || 5000));
+                       //http.listen(app.get('port'));
+                       http.listen(3000);
 
                        app.use(upload()); //for file upload -- html form file upload imp
                      // app.use(express.static(__dirname + '/public'));
@@ -25,6 +26,4 @@
 				res.render('index');
 			});
 
-			app.listen(app.get('port'), function() {
-				console.log('Our app is running at port' + app.get('port'));
-			});
+			
