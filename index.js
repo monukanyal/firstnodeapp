@@ -23,7 +23,7 @@
 				
 				//res.send('Welcome Monu kanyal');
 				// ejs render automatically looks in the views folder
-				res.render('index');
+				res.render('index',{page_title:'Home'});
 			});
 
 			
