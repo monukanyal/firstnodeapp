@@ -20,11 +20,16 @@
       "version": "https://registry.npmjs.org/nodemailer/-/nodemailer-4.0.1.tgz",
       "integrity": "sha1-uVhksH+s7oKH6CMu/9bx1W7HWrI="
     },
+    "express-fileupload": {
+      "version": "https://registry.npmjs.org/express-fileupload/-/express-fileupload-0.1.3.tgz",
+      "integrity": "sha1-Pk06mU8fg0BG9egsoMccPx9rRBw="
+    },
+    "socket.io":"*",
     "express-session":"1.11.3",
     "googleapis":"19.0.0",
   },
   "engines": {
-    "node": "4.0.0"
+    "node": "^6.0.0"
   },
   "repository": {
     "type": "git",
@@ -35,9 +40,9 @@
     "heroku",
     "express"
   ],
-  "author": "Mark Pundsack",
+  "author": "Monu kanyal",
   "contributors": [
-    "Zeke Sikelianos <zeke@sikelianos.com> (http://zeke.sikelianos.com)"
+    "Monu kanyal"
   ],
   "license": "MIT"
 }
