@@ -14,14 +14,16 @@
                        http.listen(app.get('port'));
 
                        app.use(upload()); //for file upload -- html form file upload imp
-                      app.use(express.static(__dirname + '/public'));
+                     // app.use(express.static(__dirname + '/public'));
+			app.use('/public', express.static('vendors')); 
 
-app.get('/', function(request, response) {
- 
-       //response.send('Welcome Monu kanyal!');
-       response.render('index',{page_title:'Home'}); 
-});
+			// set the home page route
+			app.get('/', function(req, res) {
 
- app.listen(app.get('port'), function() {
-	 console.log("Node app is running at localhost:" + app.get('port'));
- });
+				// ejs render automatically looks in the views folder
+				res.render('index');
+			});
+
+			app.listen(port, function() {
+				console.log('Our app is running at port' + port);
+			});
