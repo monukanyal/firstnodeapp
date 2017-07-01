@@ -20,11 +20,11 @@
 			// set the home page route
 			app.get('/', function(req, res) {
 				
-				res.send('Welcome Monu kanyal');
+				//res.send('Welcome Monu kanyal');
 				// ejs render automatically looks in the views folder
-				//res.render('index');
+				res.render('index');
 			});
 
-			app.listen(port, function() {
-				console.log('Our app is running at port' + port);
+			app.listen(app.get('port'), function() {
+				console.log('Our app is running at port' + app.get('port'));
 			});
