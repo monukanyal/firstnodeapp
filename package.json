@@ -11,19 +11,10 @@
     "ejs":"2.5.6",
     "md5":"2.2.1",
     "moment":"2.18.1",
-   "mysql": {
-      "version": "https://registry.npmjs.org/mysql/-/mysql-2.13.0.tgz",
-      "integrity": "sha1-mY8fjKRuLj3XFJzpgkE2U5hqrkc="
-    },
+    "mysql": "^2.0.0",
     "node-outlook":"1.1.6",
-    "nodemailer": {
-      "version": "https://registry.npmjs.org/nodemailer/-/nodemailer-4.0.1.tgz",
-      "integrity": "sha1-uVhksH+s7oKH6CMu/9bx1W7HWrI="
-    },
-    "express-fileupload": {
-      "version": "https://registry.npmjs.org/express-fileupload/-/express-fileupload-0.1.3.tgz",
-      "integrity": "sha1-Pk06mU8fg0BG9egsoMccPx9rRBw="
-    },
+    "nodemailer":"4.0.1",
+    "express-fileupload":"*",
     "socket.io":"*",
     "express-session":"1.11.3",
     "googleapis":"19.0.0"
@@ -32,3 +23,4 @@
     "node": "^6.0.0"
   }
 }
+
