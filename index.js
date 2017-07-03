@@ -59,7 +59,7 @@
 	});
 	app.get('/login_private',function(request,response){
 		
-			 response.render('login_private');
+			// response.render('login_private');
 		
 
 	});
@@ -71,3 +71,51 @@ app.post('/createuser',function(request,response){
 	 response.render('firechat',{username:username,room:room_name});
 						
 	});
+
+		io.on('connection', function(socket){
+			console.log('socket started');
+			socket.on('newuser', function(username,room){
+			
+					socket.join(room);
+					socket.username=username;
+					socket.myroom=room;
+					console.log(username+'added');
+					//socket.nou=io.engine.clientsCount;
+					//socket.broadcast.emit(username+'joined..');
+					//io.to(room).emit('showchat', username,socket.nou);
+				
+			});
+
+			// socket.on('newroom',function(room){
+					
+			// 		console.log(io.sockets.adapter.rooms);
+			// 		io.to(room).emit('showroommsg','Welcome to all in room');
+			// });
+
+			socket.on('sendmsg', function(msg){
+		    	
+		    	console.log('message: '+ socket.username);
+
+		    	io.to(socket.myroom).emit('showchat', socket.username,socket.nou,msg);
+		  	});
+
+			socket.on('disconnect', function(){
+		    console.log(socket.username+' disconnected');
+		    	var msg=socket.username+' disconnected';
+		    	io.to(socket.myroom).emit('notification',msg);
+		 	 });
+
+		});
+		
+
+		app.get('/start_sock',function(request,response){
+		response.render('start_socket');
+	});
+	app.post('/createroom',function(request,response){
+		var username=request.body.username;
+		var room_name=request.body.optradio;
+		request.session.user=username;
+		console.log(request.session.user);
+		 response.render('start',{username:username,room:room_name});
+	});
+		// socket end
