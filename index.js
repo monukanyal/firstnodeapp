@@ -26,4 +26,38 @@
 				res.render('index',{page_title:'Home'});
 			});
 
+			app.get('/firebasechat',function(request,response){
 			
+				if (request.session.user) 
+				{
+					var username=request.session.user;	
+					 response.render('firechat',{username:username});
+				}
+				else
+				{
+					 response.render('login');
+				}
+		
+			});
+
+	app.post('/disconnect',function(request,response){
+		if (request.session.user) 
+		{
+			request.session.destroy();
+			response.redirect('/firebasechat');
+		}
+		
+	});
+
+	app.get('/login',function(request,response){
+		
+			 response.render('login');
+		
+
+	});
+	app.get('/login_private',function(request,response){
+		
+			 response.render('login_private');
+		
+
+	});
