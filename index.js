@@ -1,7 +1,7 @@
                         var express = require('express');
 			var mysql=require('mysql');
 			var md5 = require('md5');
-			var session = require('express-session')			
+			var session = require('express-session');			
 			var app  = express();
 			
 			app.set('view engine', 'ejs');
@@ -15,9 +15,11 @@
                        http.listen(port);
 
                        app.use(upload()); //for file upload -- html form file upload imp
-                     // app.use(express.static(__dirname + '/public'));
+                   	  // app.use(express.static(__dirname + '/public'));
 			app.use('/public', express.static('vendors')); 
-
+			store  = new express.session.MemoryStore;
+			app.use(express.cookieParser());
+			app.use(express.session({ secret: 'something'}));
 			// set the home page route
 			app.get('/', function(req, res) {
 				
