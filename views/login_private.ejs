@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Firebase chat-private</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    
+    $("document").ready(function(){
+
+      $("#user1").change(function(){
+        var user1=$("#user1").val();
+
+        if(user1=='Monu')
+        {
+        $("#1").attr('disabled', true);
+        $("#2").attr('disabled', false);
+        $("#3").attr('disabled', false);
+        }
+        else if(user1=='Shyam')
+        {
+        $("#2").attr('disabled', true);
+        $("#3").attr('disabled', false);
+        $("#1").attr('disabled', false);
+        }
+        else
+        {
+        $("#3").attr('disabled', true);
+        $("#2").attr('disabled', false);
+        $("#1").attr('disabled', false);
+        }
+
+      });
+    });
+  </script>
+</head>
+<body>
+
+  <div class="row">
+
+ 	<div class="col-md-4"> </div>
+
+ 	<div class="col-md-4">
+  <form action="/createuser_private" method="POST" enctype="multipart/form-data">
+	 	<div class="chat_div">
+	   
+      <div class="form-group">
+        <label for="sel1">Username:</label>
+        <select class="form-control" name="username" id="user1" required>
+          <option value="">Select</option>
+          <option value="Monu">Monu</option>
+          <option value="Shyam">Shyam</option>
+          <option value="Ram">Ram</option>
+        </select>
+      </div>
+	     
+      <label class="radio-inline"><input type="radio" name="optradio" value="Monu" id="1">Monu</label>
+      <label class="radio-inline"><input type="radio" name="optradio" value="Shyam" id="2">Shyam</label>
+      <label class="radio-inline"><input type="radio" name="optradio" value="Ram" id="3">Ram</label>
+	    <button type="submit" class="btn btn-success btn-xs" name="submit">Submit</button>
+	    </div>
+    </form>
+    </div>
+
+    <div class="col-md-4">
+    </div>
+
+    </div>
+
+  
+</body>
+</html> 

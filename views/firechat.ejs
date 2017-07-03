@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Firebase chat</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCdWRghE9yFfSe1nNRvHz770qTARQZtYds",
+    authDomain: "demoproject-5f58e.firebaseapp.com",
+    databaseURL: "https://demoproject-5f58e.firebaseio.com",
+    projectId: "demoproject-5f58e",
+    storageBucket: "demoproject-5f58e.appspot.com",
+    messagingSenderId: "1054656866695"
+  };
+  firebase.initializeApp(config);
+  var room_name="<%= room %>";
+  var rootRef = firebase.database().ref(room_name+'/');
+// rootRef.set({
+//   title: "Hello World!",
+//   author: "Firebase",
+//   location: {
+//     city: "San Francisco",
+//     state: "California",
+//     zip: 94103
+//   }
+// });
+
+$("document").ready(function(){
+
+$("#post").click(function(){
+	 var username =$("#username").val();
+	var msg=$("#text").val();
+	if(username!="" && msg!="")
+	{
+     //rootRef.push(username + " says: " + msg);
+       //rootRef.child("room1").push(username + ":" + msg);
+		var mkres=rootRef.push({
+       name: username,
+        Message: msg
+    });;
+
+    // var mkres=rootRef.child("room1").push({
+    //    name: username,
+    //    Message: msg
+    // });
+    console.log(mkres);
+		  $("#text").val('');
+		 
+		   
+		
+	}
+	else
+	{
+		alert('Please provide required');
+	}
+});
+
+});
+//var room1data = firebase.database().ref("room2/");
+ var startListening = function() {
+      rootRef.on('child_added', function(snapshot) {
+      	
+        var data = snapshot.val();
+       // console.log(data);
+        //console.log(data.Message);
+
+        $('#messages').append($('<li>').html(data.name+':'+data.Message));
+      });
+    }
+
+    // Begin listening for data
+    startListening();
+</script>
+</head>
+<body>
+
+  <div class="row">
+
+ 	<div class="col-md-4">
+     <input type="hidden" id="username" value="<%= username %>">
+ 		 <input type="hidden" id="room_name" value="<%= room %>">
+     <h4>Online User</h4>
+ 	 </div>
+
+ 	<div class="col-md-4">
+
+	 	<div class="chat_div">
+	    <div class="form-group">
+	      <label for="pwd">Message:</label>
+	     
+	      <input type="text" class="form-control" id="text" placeholder="Enter message" name="pwd">
+	    </div>
+	    <button type="button" class="btn btn-success btn-xs" id="post">POST</button>
+      <form action="/disconnect" method="post" enctype="multipart/form-data">
+      <button type="submit" class="btn btn-danger btn-xs" id="disconnect" style="float:right">Disconnect</button>
+	     </form>
+      </div>
+
+	    
+
+    </div>
+
+    <div class="col-md-4">
+    <div id="results">
+    	
+    <ul id="messages"></ul>
+
+    </div>
+    </div>
+
+    </div>
+
+  
+</body>
+</html>
