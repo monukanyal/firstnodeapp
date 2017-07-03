@@ -168,8 +168,8 @@
     </div>
 <script type="text/javascript">
   $("document").ready(function(){
-
- var socket = io.connect('http://127.0.0.1:3000/');
+var pageURL = document.location.origin;
+ var socket = io.connect(pageURL);
 
    var username =$("#username").val();
    var room =$("#room_name").val();
