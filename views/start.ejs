@@ -1,0 +1,228 @@
+	
+<html lang="en">
+<head>
+  <title>Socket chat</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+
+<style>
+     .chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 450px;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+.panel-body ul {
+    width: 100%;
+} 
+.panel-body ul .right {
+    width: 100%;
+    float: right;
+}
+.panel-body ul .left {
+    width: 100%;
+    float: left;
+}
+
+.panel-body ul .right .chat-body p {
+    text-align: right;
+}
+.panel-body ul li span.cricle_info {
+    font-size: 20px;
+    display: inline-block;
+    border: 1px solid #ed3f1c;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 4px;
+    background-color:#ed3f1c    ;
+    color:#fff;
+    font-weight: 100;
+}
+.panel-body ul li span.cricle_info2 {
+    font-size: 20px;
+    display: inline-block;
+    border: 1px solid #306ef4;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 4px;
+    background-color:#306ef4;
+    color:#fff;
+    font-weight: 100;
+}
+.panel-footer .input-group span button{
+    background: #374b51 !important;
+    border: 1px solid #374b51;
+    color:#fff;
+    
+}
+    </style>
+</head>
+<body>
+  <div class="row">
+        <div class="col-md-12 col-sm-12">
+        <input type="hidden" id="username" value="<%= username %>">
+       <input type="hidden" id="room_name" value="<%= room %>">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+                    <div id="notif"></div>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu slidedown">
+                            <li><a href=""><span class="glyphicon glyphicon-refresh">
+                            </span>Refresh</a></li>
+                            <li><a href=""><span class="glyphicon glyphicon-ok-sign">
+                            </span>Available</a></li>
+                            <li><a href=""><span class="glyphicon glyphicon-remove">
+                            </span>Busy</a></li>
+                            <li><a href=""><span class="glyphicon glyphicon-time"></span>
+                                Away</a></li>
+                            <li class="divider"></li>
+                            <li><a href=""><span class="glyphicon glyphicon-off"></span>
+                                Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul class="chat">
+
+                    </ul>
+                </div>
+                <div class="panel-footer">
+               
+                    <div class="input-group">
+
+                        <input id="text" type="text" class="form-control input-sm"  placeholder="Type your message here..." autofocus />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-warning btn-sm" id="btn-chat">
+                                Send</button>
+                        </span>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+  $("document").ready(function(){
+
+ var socket = io.connect('http://127.0.0.1:3000/');
+
+   var username =$("#username").val();
+   var room =$("#room_name").val();
+  socket.emit('newuser',username,room);   //<-- it will create new room and server
+
+ // $("form").on('submit',(function(e) {
+
+        // e.preventDefault();
+           $('#text').keypress(function(e){
+            if(e.keyCode==13)
+            $('#btn-chat').click();
+          });
+
+         $("#btn-chat").click(function(){
+            var username =$("#username").val();
+            var msg=$("#text").val();
+
+            if(username!="" && msg!="")
+            {
+              socket.emit('sendmsg',msg,username);
+              $("#text").val('');
+            }
+          else
+          {
+            alert('Please provide required');
+          }
+        });
+
+   // }));
+
+
+socket.on('showchat', function(sendername,numuser,msg){
+  console.log(sendername);
+
+          if(sendername==username)
+       {
+          name=username;
+         $('.chat').append('<li class="left clearfix"><span class="chat-img cricle_info pull-left">'+name.charAt(0).toUpperCase()+'</span> <div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+name+'</strong> <small class="pull-right text-muted"> <span class="glyphicon glyphicon-time"></span>12 mins ago</small> </div><p>'+msg+'</p> </div></li>');
+      }
+      else
+      {
+         name=sendername;
+          $('.chat').append('<li class="right clearfix"><span class="chat-img cricle_info2 pull-right">'+name.charAt(0).toUpperCase()+'</span> <div class="chat-body clearfix"> <div class="header"><small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small><strong class="pull-right primary-font">'+name+'</strong></div> <p>'+msg+'</p></div></li>');
+      }
+    });
+
+socket.on('notification', function(msg){
+    $("#notif").html('<p>'+msg+'</p>');
+    setTimeout(function() { $("#notif").html(''); }, 3000);
+});
+
+});
+
+</script>
+</body>
+</html>
