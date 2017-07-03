@@ -61,3 +61,11 @@
 		
 
 	});
+
+app.post('/createuser',function(request,response){
+		var username=request.body.username;
+		var room_name=request.body.optradio;
+		request.session.user=username;
+	 response.render('firechat',{username:username,room:room_name});
+						
+	});
